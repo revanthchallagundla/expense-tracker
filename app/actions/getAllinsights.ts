@@ -12,8 +12,8 @@ export async function getAIInsights(): Promise<AIInsight[]> {
     }
 
     // 1) Look up internal user (UUID) by Clerk ID
-    const me = await db.user.findUnique({
-      where: { clerkId: user.clerkUserId },
+    const me = await db.user.findFirst({
+      where: { clerkUserId: user.clerkUserId }, // FIXED: was clerkId
       select: { id: true },
     });
 
@@ -47,7 +47,7 @@ export async function getAIInsights(): Promise<AIInsight[]> {
 
     const expenses = await db.record.findMany({
       where: {
-        userId: me.id, // <-- internal UUID, not Clerk ID
+        userId: me.id, // internal UUID, not Clerk ID
         createdAt: { gte: thirtyDaysAgo },
       },
       orderBy: { createdAt: 'desc' },
