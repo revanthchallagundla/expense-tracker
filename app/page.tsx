@@ -32,6 +32,9 @@ export default async function Homepage() {
                 <Image
                   src={user.imageUrl ? user.imageUrl : '/default-profile.png'}
                   alt={`${user.firstName}'s profile`}
+                  width={80}
+                  height={80}
+                  priority
                   className='w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border-2 border-white dark:border-gray-600 shadow-lg'
                 />
                 <div className='absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-r from-green-400 to-green-500 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center'>
