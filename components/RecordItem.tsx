@@ -1,8 +1,12 @@
 'use client';
 import { useState } from 'react';
-import { Record } from '@/types/Record';
 import deleteRecord from '@/app/actions/deleteRecord';
 
+import { UIRecord } from '@/types/Record';
+
+interface RecordItemProps {
+  record: UIRecord;
+}
 // Helper function to get category emoji
 const getCategoryEmoji = (category: string) => {
   switch (category) {
@@ -23,7 +27,7 @@ const getCategoryEmoji = (category: string) => {
   }
 };
 
-const RecordItem = ({ record }: { record: Record }) => {
+const RecordItem = ({ record }: { record: UIRecord }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleDeleteRecord = async (recordId: string) => {

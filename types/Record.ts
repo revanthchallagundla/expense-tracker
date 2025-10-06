@@ -7,3 +7,5 @@ export interface Record {
   userId: string;
   createdAt: Date;
 }
+
+export type UIRecord = Omit<Record, 'userId' | 'createdAt'>;

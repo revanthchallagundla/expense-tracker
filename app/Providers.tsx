@@ -6,7 +6,9 @@ import { ReactNode, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 // if you used the split files:
-import { setTheme, markHydrated, type Theme } from '../actions/themeActions';
+import { setTheme, markHydrated } from '../actions/themeActions';
+
+type Theme = 'light' | 'dark';
 
 function ThemeHydrator() {
   const dispatch = useDispatch();

@@ -93,10 +93,10 @@ export default async function addExpenseRecord(formData: FormData): Promise<Reco
         date: created.date.toISOString(),
       },
     };
-  } catch (err: any) {
-    if (err?.code === 'P2023') {
-      return { error: 'Invalid UUID written to a UUID column (check userId/FKs).' };
-    }
+  } catch (err) {
+  if (err && typeof err === 'object' && 'code' in err && err.code === 'P2023') {
+    return { error: 'Invalid UUID written to a UUID column (check userId/FKs).' };
+  }
     console.error('Error adding expense record:', err);
     return { error: 'An unexpected error occurred while adding the expense record.' };
   }

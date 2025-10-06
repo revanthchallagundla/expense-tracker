@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Image from 'next/image';
 import checkUser from '@/lib/checkUser'
 import Guest from '@/components/Guest';
 import AddNewRecord from '@/components/AddNewRecord';
@@ -28,9 +29,9 @@ export default async function Homepage() {
             <div className='bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm p-4 sm:p-6 lg:p-8 rounded-2xl shadow-xl border border-gray-100/50 dark:border-gray-700/50 hover:shadow-2xl flex flex-col sm:flex-row items-center sm:items-start gap-4 sm:gap-6'>
               {/* User Image - responsive sizing */}
               <div className='relative flex-shrink-0'>
-                <img
-                  src={user.imageUrl}
-                  alt={`${user.firstName}&#39;s profile`}
+                <Image
+                  src={user.imageUrl ? user.imageUrl : '/default-profile.png'}
+                  alt={`${user.firstName}'s profile`}
                   className='w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border-2 border-white dark:border-gray-600 shadow-lg'
                 />
                 <div className='absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-r from-green-400 to-green-500 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center'>
@@ -77,8 +78,8 @@ export default async function Homepage() {
                         Last Active
                       </span>
                       <span className='text-sm font-semibold text-gray-800 dark:text-gray-200'>
-                        {user.lastActiveAt
-                          ? new Date(user.lastActiveAt).toLocaleDateString()
+                        {user.lastSignInAt
+                          ? new Date(user.lastSignInAt).toLocaleDateString()
                           : 'Today'}
                       </span>
                     </div>

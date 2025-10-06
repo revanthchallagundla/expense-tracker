@@ -1,6 +1,6 @@
 'use server';
 
-import { checkUser } from '@/lib/checkUser';
+import checkUser  from '@/lib/checkUser';
 import { db } from '@/lib/db';
 import { generateExpenseInsights, AIInsight, ExpenseRecord } from '@/lib/ai';
 
