@@ -1,6 +1,6 @@
 'use server';
 
-import checkUser  from '@/lib/checkUser';
+import checkUser from '@/lib/checkUser';
 import { db } from '@/lib/db';
 import { generateExpenseInsights, AIInsight, ExpenseRecord } from '@/lib/ai';
 
@@ -17,7 +17,7 @@ export async function getAIInsights(): Promise<AIInsight[]> {
 
     const expenses = await db.record.findMany({
       where: {
-        userId: user.clerkUserId,
+        userId: user.id, // ✅ internal UUID from your DB, not Clerk's id
         createdAt: {
           gte: thirtyDaysAgo,
         },
