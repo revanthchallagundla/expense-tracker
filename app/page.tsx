@@ -4,7 +4,7 @@ import Guest from '@/components/Guest';
 import AddNewRecord from '@/components/AddNewRecord';
 import RecordChart from '@/components/RecordChart';
 import ExpenseStats from '@/components/ExpenseStats';
-import AIInsights from '@/components/AIInsights';
+
 import RecordHistory from '@/components/RecordHistory';
 
 export default async function Homepage() {
@@ -100,7 +100,7 @@ export default async function Homepage() {
 
         {/* Full-width sections below - mobile-friendly spacing */}
         <div className='mt-6 sm:mt-8 space-y-4 sm:space-y-6'>
-          <AIInsights />
+         
           <RecordHistory />
         </div>
       </div>
