@@ -5,8 +5,9 @@ import Guest from '@/components/Guest';
 import AddNewRecord from '@/components/AddNewRecord';
 import RecordChart from '@/components/RecordChart';
 import ExpenseStats from '@/components/ExpenseStats';
-
+import Allansights from '@/components/AIInsights';
 import RecordHistory from '@/components/RecordHistory';
+import { Allan } from 'next/font/google';
 
 export default async function Homepage() {
 
@@ -30,13 +31,13 @@ export default async function Homepage() {
               {/* User Image - responsive sizing */}
               <div className='relative flex-shrink-0'>
                 <Image
-                  src={user.imageUrl || '/default-profile.png'}
-                  alt={`${user.firstName ?? 'User'}'s profile`}
-                  width={80}
-                  height={80}
-                  className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border-2 border-white dark:border-gray-600 shadow-lg object-cover"
-                  unoptimized
-                />
+                src={user.imageUrl || '/default-profile.png'}
+                alt={`${user.firstName ?? 'User'}'s profile`}
+                width={80}
+                height={80}
+                className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl border-2 border-white dark:border-gray-600 shadow-lg object-cover"
+                unoptimized
+              />
 
                 <div className='absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 bg-gradient-to-r from-green-400 to-green-500 rounded-full border-2 border-white dark:border-gray-800 flex items-center justify-center'>
                   <span className='text-white text-xs'>✓</span>
@@ -105,7 +106,7 @@ export default async function Homepage() {
 
         {/* Full-width sections below - mobile-friendly spacing */}
         <div className='mt-6 sm:mt-8 space-y-4 sm:space-y-6'>
-         
+          <Allansights />
           <RecordHistory />
         </div>
       </div>
