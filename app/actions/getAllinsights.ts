@@ -1,6 +1,6 @@
 'use server';
 
-import checkUser  from '@/lib/checkUser';
+import checkUser from '@/lib/checkUser';
 import { db } from '@/lib/db';
 import { generateExpenseInsights, AIInsight, ExpenseRecord } from '@/lib/ai';
 
@@ -11,25 +11,50 @@ export async function getAIInsights(): Promise<AIInsight[]> {
       throw new Error('User not authenticated');
     }
 
-    // Get user's recent expenses (last 30 days)
+    // 1) Look up internal user (UUID) by Clerk ID
+    const me = await db.user.findUnique({
+      where: { clerkId: user.clerkUserId },
+      select: { id: true },
+    });
+
+    if (!me) {
+      // No internal mapping yet; treat like a new user
+      return [
+        {
+          id: 'welcome-1',
+          type: 'info',
+          title: 'Welcome to ExpenseTracker AI!',
+          message:
+            'Start adding your expenses to get personalized AI insights about your spending patterns.',
+          action: 'Add your first expense',
+          confidence: 1.0,
+        },
+        {
+          id: 'welcome-2',
+          type: 'tip',
+          title: 'Track Regularly',
+          message:
+            'For best results, try to log expenses daily. This helps our AI provide more accurate insights.',
+          action: 'Set daily reminders',
+          confidence: 1.0,
+        },
+      ];
+    }
+
+    // 2) Get user's recent expenses (last 30 days) using internal UUID
     const thirtyDaysAgo = new Date();
     thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
 
     const expenses = await db.record.findMany({
       where: {
-        userId: user.clerkUserId,
-        createdAt: {
-          gte: thirtyDaysAgo,
-        },
+        userId: me.id, // <-- internal UUID, not Clerk ID
+        createdAt: { gte: thirtyDaysAgo },
       },
-      orderBy: {
-        createdAt: 'desc',
-      },
-      take: 50, // Limit to recent 50 expenses for analysis
+      orderBy: { createdAt: 'desc' },
+      take: 50,
     });
 
     if (expenses.length === 0) {
-      // Return default insights for new users
       return [
         {
           id: 'welcome-1',
@@ -66,8 +91,6 @@ export async function getAIInsights(): Promise<AIInsight[]> {
     return insights;
   } catch (error) {
     console.error('Error getting AI insights:', error);
-
-    // Return fallback insights
     return [
       {
         id: 'error-1',

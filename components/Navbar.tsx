@@ -2,8 +2,9 @@
 
 import { SignInButton, SignedIn, SignedOut, UserButton } from '@clerk/nextjs';
 import Link from 'next/link';
-import ThemeToggle from '@/components/ThemeToggle';
 import { useState } from 'react';
+import { Hand } from 'lucide-react';
+
 
 export default function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -73,17 +74,16 @@ export default function Navbar() {
 
           {/* Right Section */}
           <div className='flex items-center space-x-1 sm:space-x-2'>
-            {/* Theme Toggle */}
-            {/* <div className='p-0.5 sm:p-1'>
-              <ThemeToggle />
-            </div> */}
+        
 
             {/* Authentication - Desktop */}
             <div className='hidden sm:block'>
               <SignedOut>
                 <SignInButton>
                   <button className='relative overflow-hidden bg-gradient-to-r from-emerald-500 via-green-500 to-teal-500 hover:from-emerald-600 hover:via-green-600 hover:to-teal-600 text-white px-3 sm:px-4 py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105 active:scale-95'>
-                    <div className='relative z-10 flex items-center gap-1 sm:gap-2'>
+                    <div className='relative z-10 flex items-center cursor-pointer gap-1 sm:gap-2'>
+                      <Hand className="w-5 h-5 text-gray-500 transition-all duration-300 group-hover:scale-110 group-hover:text-yellow-500" />
+
                       <span>Sign In</span>
                       <svg
                         className='w-3 h-3 sm:w-4 sm:h-4'
